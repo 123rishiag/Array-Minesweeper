@@ -1,12 +1,14 @@
 #include "../../header/Global/ServiceLocator.h"
-
+#include "../../header/Main/GameService.h"
 
 namespace Global
 {
 	using namespace Graphics;
 	using namespace Event;
+	using namespace Gameplay::Board;
 	using namespace Sound;
 	using namespace UI;
+	using namespace Main;
 
 	ServiceLocator::ServiceLocator()
 	{
@@ -22,8 +24,9 @@ namespace Global
 
 	void ServiceLocator::createServices()
 	{
-		event_service = new EventService();
 		graphic_service = new GraphicService();
+		event_service = new EventService();
+		board_service = new BoardService();
 		sound_service = new SoundService();
 		ui_service = new UIService();
 	}
@@ -31,30 +34,43 @@ namespace Global
 	void ServiceLocator::initialize()
 	{
 		graphic_service->initialize();
-		sound_service->initialize();
 		event_service->initialize();
+		board_service->initialize();
+		sound_service->initialize();
 		ui_service->initialize();
 	}
 
 	void ServiceLocator::update()
 	{
-		event_service->update();
-		ui_service->update();
 		graphic_service->update();
+		event_service->update();
+		if (GameService::getGameState() == GameState::GAMEPLAY)
+		{
+			board_service->update();
+		}
+		// no sound_service to update
+		ui_service->update();
 	}
 
 	void ServiceLocator::render()
 	{
-		ui_service->render();
 		graphic_service->render();
+		// no event_service to update
+		if (GameService::getGameState() == GameState::GAMEPLAY)
+		{
+			board_service->render();
+		}
+		// no sound_service to render
+		ui_service->render();
 	}
 
 	void ServiceLocator::clearAllServices()
 	{
-		delete(ui_service);
 		delete(graphic_service);
-		delete(sound_service);
 		delete(event_service);
+		delete(board_service);
+		delete(sound_service);
+		delete(ui_service);
 	}
 
 	ServiceLocator* ServiceLocator::getInstance()
@@ -63,9 +79,11 @@ namespace Global
 		return &instance;
 	}
 
+	GraphicService* ServiceLocator::getGraphicService() { return graphic_service; }
+
 	EventService* ServiceLocator::getEventService() { return event_service; }
 
-	GraphicService* ServiceLocator::getGraphicService() { return graphic_service; }
+	BoardService* ServiceLocator::getBoardService() { return board_service; }
 
 	SoundService* ServiceLocator::getSoundService() { return sound_service; }
 

@@ -1,8 +1,12 @@
 #pragma once
-#include <sfml/Graphics.hpp>
 
 namespace Gameplay
 {
+    namespace Cell
+    {
+        class CellController;
+    }
+
 	namespace Board
 	{
         class BoardView;
@@ -11,6 +15,7 @@ namespace Gameplay
 		{
         private:
             BoardView* board_view;
+            Cell::CellController* cell_controller;
 
             void createBoard();
             void destroy();

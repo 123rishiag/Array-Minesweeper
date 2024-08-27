@@ -23,7 +23,7 @@ namespace Gameplay
             CellController(sf::Vector2i grid_position);
             ~CellController();
 
-            void initialize();
+            void initialize(float cell_width, float cell_height);
             void update();
             void render();
             void reset();

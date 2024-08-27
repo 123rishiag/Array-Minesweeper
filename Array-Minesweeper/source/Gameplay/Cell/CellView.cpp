@@ -18,14 +18,14 @@ namespace Gameplay
 
         CellView::~CellView() { delete (cell_button); }
 
-        void CellView::initialize()
+        void CellView::initialize(float width, float height)
         {
-            initializeButtonImage(tile_size * 3, tile_size * 3);
+            initializeButtonImage(width, height);
         }
 
         void CellView::initializeButtonImage(float width, float height)
         {
-            cell_button->initialize("Cell", Config::cells_texture_path, width * slice_count, height, sf::Vector2f(0, 0));
+            cell_button->initialize("Cell", Config::cells_texture_path, width * slice_count, height, getCellScreenPosition());
         }
 
         void CellView::update()
@@ -64,6 +64,12 @@ namespace Gameplay
                 break;
             }
         }
+        sf::Vector2f CellView::getCellScreenPosition() const
+        {
+            float x_screen_position = cell_left_offset;
+            float y_screen_position = cell_top_offset;
 
+            return sf::Vector2f(x_screen_position, y_screen_position);
+        }
     }
 }

@@ -18,6 +18,7 @@ namespace Gameplay
             Cell::CellController* cell_controller;
 
             void createBoard();
+            void initializeCells();
             void destroy();
             void deleteBoard();
 

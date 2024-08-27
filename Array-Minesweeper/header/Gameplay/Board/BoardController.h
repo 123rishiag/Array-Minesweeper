@@ -1,12 +1,17 @@
 #pragma once
+#include <sfml/Graphics.hpp>
 
 namespace Gameplay
 {
 	namespace Board
 	{
+        class BoardView;
+
 		class BoardController
 		{
         private:
+            BoardView* board_view;
+
             void createBoard();
             void destroy();
             void deleteBoard();

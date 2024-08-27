@@ -4,8 +4,6 @@ namespace Gameplay
 {
 	namespace Board
 	{
-		using namespace Cell;
-
 		BoardController::BoardController()
 		{
 			//Yet to implement

@@ -18,6 +18,8 @@ namespace Gameplay
 		void reset();
 
 		void updateRemainingTime();
+
 		float getRemainingTime() const;
+		int getMinesCount() const;
 	};
 }

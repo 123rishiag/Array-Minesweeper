@@ -20,7 +20,7 @@ namespace UI
             button_title = title;
         }
 
-        void ButtonView::registerCallbackFuntion(CallbackFunction button_callback)
+        void ButtonView::registerCallbackFunction(CallbackFunction button_callback)
         {
             callback_function = button_callback;
         }

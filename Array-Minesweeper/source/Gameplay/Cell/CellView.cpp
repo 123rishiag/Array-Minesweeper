@@ -77,7 +77,7 @@ namespace Gameplay
 
         void CellView::registerButtonCallback()
         {
-            cell_button->registerCallbackFuntion(std::bind(&CellView::cellButtonCallback, this, std::placeholders::_1));
+            cell_button->registerCallbackFunction(std::bind(&CellView::cellButtonCallback, this, std::placeholders::_1));
         }
 
         void CellView::cellButtonCallback(ButtonType button_type)

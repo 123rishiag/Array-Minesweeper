@@ -5,8 +5,10 @@ namespace Gameplay
 	class GameplayController
 	{
 	private:
-		const float max_duration = 60.f;
+		const float max_level_duration = 301.f;
 		float remaining_time;
+
+		void updateRemainingTime();
 
 	public:
 		GameplayController();
@@ -15,9 +17,8 @@ namespace Gameplay
 		void initialize();
 		void update();
 		void render();
-		void reset();
 
-		void updateRemainingTime();
+		void restart();
 
 		float getRemainingTime() const;
 		int getMinesCount() const;

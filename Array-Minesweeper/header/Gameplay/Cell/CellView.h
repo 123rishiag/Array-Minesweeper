@@ -35,7 +35,7 @@ namespace Gameplay
 
             void registerButtonCallback();
 
-            void cellButtonCallback(ButtonType button_type);
+            void cellButtonCallback(UI::UIElement::ButtonType button_type);
         };
     }
 }

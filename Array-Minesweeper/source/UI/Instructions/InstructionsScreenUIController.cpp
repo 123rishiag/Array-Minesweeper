@@ -79,7 +79,7 @@ namespace UI
 
         void InstructionsScreenUIController::registerButtonCallback()
         {
-            menu_button->registerCallbackFuntion(std::bind(&InstructionsScreenUIController::menuButtonCallback, this));
+            menu_button->registerCallbackFunction(std::bind(&InstructionsScreenUIController::menuButtonCallback, this));
         }
 
         void InstructionsScreenUIController::menuButtonCallback()

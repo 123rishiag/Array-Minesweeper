@@ -77,8 +77,8 @@ namespace UI
 
         void CreditsScreenUIController::registerButtonCallback()
         {
-            menu_button->registerCallbackFuntion(std::bind(&CreditsScreenUIController::menuButtonCallback, this));
-            quit_button->registerCallbackFuntion(std::bind(&CreditsScreenUIController::quitButtonCallback, this));
+            menu_button->registerCallbackFunction(std::bind(&CreditsScreenUIController::menuButtonCallback, this));
+            quit_button->registerCallbackFunction(std::bind(&CreditsScreenUIController::quitButtonCallback, this));
         }
 
         void CreditsScreenUIController::menuButtonCallback()

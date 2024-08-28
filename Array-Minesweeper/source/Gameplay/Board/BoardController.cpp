@@ -96,6 +96,7 @@ namespace Gameplay
 		{
 			if (cell_controllers[cell_position.x][cell_position.y]->canOpenCell())
 			{
+				ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::FLAG);
 				cell_controllers[cell_position.x][cell_position.y]->openCell();
 			}
 		}

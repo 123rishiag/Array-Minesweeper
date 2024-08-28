@@ -36,12 +36,12 @@ namespace Gameplay
 
 	int GameplayService::getMinesCount() const
 	{
-		gameplay_controller->getMinesCount();
+		return gameplay_controller->getMinesCount();
 	}
 
 	void GameplayService::startGame()
 	{
-		gameplay_controller->reset();
+		gameplay_controller->restart();
 	}
 
 	void GameplayService::destroy()

@@ -9,6 +9,7 @@ namespace UI
 
 		sf::Font TextView::font_bubble_bobble;
 		sf::Font TextView::font_DS_DIGIB;
+		sf::Font TextView::font_roboto;
 
 		TextView::TextView() = default;
 

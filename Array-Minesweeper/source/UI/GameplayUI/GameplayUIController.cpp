@@ -1,7 +1,7 @@
-#include "../../header/UI/Gameplay/GameplayUIController.h"
+#include "../../header/UI/GameplayUI/GameplayUIController.h"
 #include "../../header/Main/GameService.h"
 #include "../../header/Sound/SoundService.h"
-#include "../../header/Event/EventService.h"
+#include "../../header/Gameplay/GameplayService.h"
 #include "../../header/Global/Config.h"
 #include "../../header/Global/ServiceLocator.h"
 
@@ -10,12 +10,11 @@
 
 namespace UI
 {
-    namespace Gameplay
+    namespace GameplayUI
     {
         using namespace Global;
         using namespace UIElement;
         using namespace Main;
-        using namespace Graphics;
         using namespace Sound;
 
         GameplayUIController::GameplayUIController()
@@ -29,6 +28,12 @@ namespace UI
             destroy();
         }
 
+        void GameplayUIController::initialize()
+        {
+            initializeButton();
+            initializeTexts();
+        }
+
         void GameplayUIController::createButton()
         {
             restart_button = new ButtonView();
@@ -38,33 +43,6 @@ namespace UI
         {
             mine_text = new TextView();
             time_text = new TextView();
-        }
-
-        void GameplayUIController::initialize()
-        {
-            initializeButton();
-            initializeTexts();
-        }
-
-        void GameplayUIController::update()
-        {
-            restart_button->update();
-            updateMineText();
-            updateTimeText();
-        }
-
-        void GameplayUIController::render()
-        {
-            restart_button->render();
-            mine_text->render();
-            time_text->render();
-        }
-
-        void GameplayUIController::show()
-        {
-            restart_button->show();
-            mine_text->show();
-            time_text->show();
         }
 
         void GameplayUIController::initializeButton()
@@ -93,6 +71,27 @@ namespace UI
             time_text->initialize("000", sf::Vector2f(time_text_left_offset, time_text_top_offset), FontType::ROBOTO, font_size, text_color);
         }
 
+        void GameplayUIController::update()
+        {
+            restart_button->update();
+            updateMineText();
+            updateTimeText();
+        }
+
+        void GameplayUIController::render()
+        {
+            restart_button->render();
+            mine_text->render();
+            time_text->render();
+        }
+
+        void GameplayUIController::show()
+        {
+            restart_button->show();
+            mine_text->show();
+            time_text->show();
+        }
+
         void GameplayUIController::updateMineText()
         {
             int mines_count = ServiceLocator::getInstance()->getGameplayService()->getMinesCount();
@@ -117,15 +116,15 @@ namespace UI
             time_text->update();
         }
 
-        void GameplayUIController::registerButtonCallback()
-        {
-            restart_button->registerCallbackFuntion(std::bind(&GameplayUIController::restartButtonCallback, this));
-        }
-
         void GameplayUIController::restartButtonCallback()
         {
             ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
             ServiceLocator::getInstance()->getGameplayService()->startGame();
+        }
+
+        void GameplayUIController::registerButtonCallback()
+        {
+            restart_button->registerCallbackFunction(std::bind(&GameplayUIController::restartButtonCallback, this));
         }
 
         void GameplayUIController::destroy()

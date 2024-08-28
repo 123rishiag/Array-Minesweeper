@@ -60,6 +60,8 @@ namespace Gameplay
 		void CellController::openCell()
 		{
 			cell_model->setCellState(CellState::OPEN);
+
+			ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::FLAG);
 		}
 
 		bool CellController::canOpenCell()

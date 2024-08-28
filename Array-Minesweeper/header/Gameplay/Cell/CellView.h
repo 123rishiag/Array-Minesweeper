@@ -32,6 +32,10 @@ namespace Gameplay
             void initialize(float width, float height);
             void update();
             void render();
+
+            void registerButtonCallback();
+
+            void cellButtonCallback(ButtonType button_type);
         };
     }
 }

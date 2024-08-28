@@ -124,7 +124,7 @@ namespace UI
 
         void GameplayUIController::registerButtonCallback()
         {
-            restart_button->registerCallbackFuntion(std::bind(&GameplayUIController::restartButtonCallback, this));
+            restart_button->registerCallbackFunction(std::bind(&GameplayUIController::restartButtonCallback, this));
         }
 
         void GameplayUIController::destroy()

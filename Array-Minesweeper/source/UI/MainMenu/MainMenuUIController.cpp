@@ -67,9 +67,9 @@ namespace UI
 
         void MainMenuUIController::registerButtonCallback()
         {
-            play_button->registerCallbackFuntion(std::bind(&MainMenuUIController::playButtonCallback, this));
-            instructions_button->registerCallbackFuntion(std::bind(&MainMenuUIController::instructionsButtonCallback, this));
-            quit_button->registerCallbackFuntion(std::bind(&MainMenuUIController::quitButtonCallback, this));
+            play_button->registerCallbackFunction(std::bind(&MainMenuUIController::playButtonCallback, this));
+            instructions_button->registerCallbackFunction(std::bind(&MainMenuUIController::instructionsButtonCallback, this));
+            quit_button->registerCallbackFunction(std::bind(&MainMenuUIController::quitButtonCallback, this));
         }
 
         void MainMenuUIController::playButtonCallback()

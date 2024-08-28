@@ -1,4 +1,4 @@
-#include "../../header/UI/Gameplay/GameplayUIController.h"
+#include "../../header/UI/GameplayUI/GameplayUIController.h"
 #include "../../header/Main/GameService.h"
 #include "../../header/Sound/SoundService.h"
 #include "../../header/Gameplay/GameplayService.h"
@@ -10,7 +10,7 @@
 
 namespace UI
 {
-    namespace Gameplay
+    namespace GameplayUI
     {
         using namespace Global;
         using namespace UIElement;

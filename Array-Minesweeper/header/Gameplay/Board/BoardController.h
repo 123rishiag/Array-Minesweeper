@@ -1,4 +1,5 @@
 #pragma once
+#include <SFML/Graphics.hpp>
 
 namespace Gameplay
 {
@@ -28,7 +29,7 @@ namespace Gameplay
 
         private:
             BoardView* board_view;
-            Cell::CellController* cell_controllers[number_of_columns];
+            Cell::CellController* cell_controllers[number_of_rows][number_of_columns];
 
             void createBoard();
             void initializeCells();

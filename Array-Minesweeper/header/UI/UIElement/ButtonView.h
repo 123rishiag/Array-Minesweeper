@@ -6,6 +6,12 @@ namespace UI
 {
 	namespace UIElement
 	{
+		enum class ButtonType
+		{
+			LEFT_MOUSE_BUTTON,
+			RIGHT_MOUSE_BUTTON,
+		};
+
 		class ButtonView : public ImageView
 		{
 		private:
@@ -31,7 +37,7 @@ namespace UI
 			virtual void update() override;
 			virtual void render() override;
 
-			void registerCallbackFuntion(CallbackFunction button_callback);
+			void registerCallbackFunction(CallbackFunction button_callback);
 		};
 	}
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "../../header/UI/UIElement/ButtonView.h"
 
 namespace Gameplay
 {
@@ -19,6 +20,8 @@ namespace Gameplay
             static const int number_of_columns = 9;
             static const int mines_count = 8;
 
+            int flagged_cells;
+
             BoardController();
             ~BoardController();
 
@@ -26,6 +29,11 @@ namespace Gameplay
             void update();
             void render();
             void reset();
+
+            void openCell(sf::Vector2i cell_position);
+            void flagCell(sf::Vector2i cell_position);
+
+            void processCellInput(Cell::CellController* cell_controller, UI::UIElement::ButtonType button_type);
 
             int getMinesCount() const;
 

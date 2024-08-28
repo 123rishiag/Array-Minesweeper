@@ -21,9 +21,13 @@ namespace Gameplay
 
 		void BoardController::createBoard()
 		{
-			for (int i = 0; i < number_of_columns; i++)
+			
+			for (int row = 0; row < number_of_rows; row++)
 			{
-				cell_controllers[i] = new CellController(i, sf::Vector2i(0, 0)); //Passing Cell Index in Cell Controller's constructor
+				for (int column = 0; column < number_of_columns; column++)
+				{ 
+					cell_controllers[row][column] = new CellController(sf::Vector2i(row, column)); //Passing Cell Index in Cell Controller's constructor
+				}
 			}
 		}
 
@@ -36,26 +40,35 @@ namespace Gameplay
 		void BoardController::update()
 		{
 			board_view->update();
-			for (int i = 0; i < number_of_columns; i++)
+			for (int row = 0; row < number_of_rows; row++)
 			{
-				cell_controllers[i]->update();
+				for (int column = 0; column < number_of_columns; column++)
+				{
+					cell_controllers[row][column]->update();
+				}
 			}
 		}
 
 		void BoardController::render()
 		{
 			board_view->render();
-			for (int i = 0; i < number_of_columns; i++)
+			for (int row = 0; row < number_of_rows; row++)
 			{
-				cell_controllers[i]->render();
+				for (int column = 0; column < number_of_columns; column++)
+				{
+				cell_controllers[row][column]->render();
+				}
 			}
 		}
 
 		void BoardController::reset()
 		{
-			for (int i = 0; i < number_of_columns; i++)
+			for (int row = 0; row < number_of_rows; row++)
 			{
-				cell_controllers[i]->reset();
+				for (int column = 0; column < number_of_columns; column++)
+				{
+				cell_controllers[row][column]->reset();
+				}
 			}
 		}
 
@@ -64,17 +77,23 @@ namespace Gameplay
 			float cell_width = board_view->getCellWidth();
 			float cell_height = board_view->getCellHeight();
 
-			for (int i = 0; i < number_of_columns; i++)
+			for (int row = 0; row < number_of_rows; row++)
 			{
-				cell_controllers[i]->initialize(cell_width, cell_height);
+				for (int column = 0; column < number_of_columns; column++)
+				{
+				cell_controllers[row][column]->initialize(cell_width, cell_height);
+				}
 			}
 		}
 
 		void BoardController::deleteBoard()
 		{
-			for (int i = 0; i < number_of_columns; i++)
+			for (int row = 0; row < number_of_rows; row++)
 			{
-				delete(cell_controllers[i]);
+				for (int column = 0; column < number_of_columns; column++)
+				{
+				delete(cell_controllers[row][column]);
+				}
 			}
 		}
 

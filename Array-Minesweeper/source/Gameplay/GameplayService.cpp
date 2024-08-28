@@ -29,6 +29,11 @@ namespace Gameplay
 		gameplay_controller->render();
 	}
 
+	float GameplayService::getRemainingTime() const
+	{
+		return gameplay_controller->getRemainingTime();
+	}
+
 	void GameplayService::startGame()
 	{
 		gameplay_controller->reset();

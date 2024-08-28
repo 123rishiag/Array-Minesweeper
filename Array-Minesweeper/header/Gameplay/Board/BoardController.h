@@ -27,6 +27,8 @@ namespace Gameplay
             void render();
             void reset();
 
+            int getMinesCount() const;
+
         private:
             BoardView* board_view;
             Cell::CellController* cell_controllers[number_of_rows][number_of_columns];

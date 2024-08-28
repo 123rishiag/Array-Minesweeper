@@ -21,6 +21,8 @@ namespace Gameplay
             void update();
             void render();
             void resetBoard();
+
+            int getMinesCount() const;
         };
     }
 }

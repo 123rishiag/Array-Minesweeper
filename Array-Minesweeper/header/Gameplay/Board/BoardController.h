@@ -37,6 +37,7 @@ namespace Gameplay
             void render();
             void reset();
 
+            void openAllCells();
             void openCell(sf::Vector2i cell_position);
             void flagCell(sf::Vector2i cell_position);
             void processCellInput(Cell::CellController* cell_controller, UI::UIElement::ButtonType button_type);

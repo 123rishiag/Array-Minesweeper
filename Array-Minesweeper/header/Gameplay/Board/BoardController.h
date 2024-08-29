@@ -40,6 +40,7 @@ namespace Gameplay
             void openAllCells();
             void openEmptyCells(sf::Vector2i cell_position);
             void openCell(sf::Vector2i cell_position);
+            void flagAllMines();
             void flagCell(sf::Vector2i cell_position);
             void processCellInput(Cell::CellController* cell_controller, UI::UIElement::ButtonType button_type);
 

@@ -84,7 +84,10 @@ namespace Gameplay
 	// It corresponds to the "Game Won" path in the architecture.
 	void GameplayController::gameWon()
 	{
-		// Implement game won specific logic here.
+		game_result = GameResult::WON;
+		board_service->flagAllMines();
+		board_service->setBoardState(BoardState::COMPLETED);
+		ServiceLocator::getInstance()->getSoundService()->playSound(Sound::SoundType::GAME_WON);
 	}
 
 	void GameplayController::beginGameOverTimer() 

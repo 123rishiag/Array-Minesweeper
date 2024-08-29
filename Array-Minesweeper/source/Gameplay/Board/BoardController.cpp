@@ -93,6 +93,22 @@ namespace Gameplay
 			}
 		}
 
+		void BoardController::openAllCells()
+		{
+			if (board_state == BoardState::FIRST_CELL)
+			{
+				populateBoard(sf::Vector2i(0, 0));
+			}
+
+			for (int row = 0; row < number_of_rows; row++)
+			{
+				for (int column = 0; column < number_of_columns; column++)
+				{
+					board[row][column]->openCell();
+				}
+			}
+		}
+
 		void BoardController::openCell(sf::Vector2i cell_position)
 		{
 			if (board[cell_position.x][cell_position.y]->canOpenCell())
@@ -201,6 +217,7 @@ namespace Gameplay
 
 			return mines_around;
 		}
+
 		void BoardController::deleteBoard()
 		{
 			for (int row = 0; row < number_of_rows; row++)
@@ -226,7 +243,6 @@ namespace Gameplay
 		{
 			board_state = state;
 		}
-
 
 		void BoardController::destroy()
 		{

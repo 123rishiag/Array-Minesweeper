@@ -25,6 +25,7 @@ namespace Gameplay
 
 		GameResult game_result = GameResult::NONE;
 
+		bool isTimeOver();
 		void updateRemainingTime();
 		void gameLost();
 		void gameWon();

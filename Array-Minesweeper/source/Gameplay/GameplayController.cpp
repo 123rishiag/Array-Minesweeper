@@ -17,10 +17,7 @@ namespace Gameplay
 		board_service = ServiceLocator::getInstance()->getBoardService();
 	}
 
-	GameplayController::~GameplayController()
-	{
-		delete(board_service);
-	}
+	GameplayController::~GameplayController() {	}
 
 	void GameplayController::initialize()
 	{
@@ -30,11 +27,18 @@ namespace Gameplay
 	void GameplayController::update()
 	{
 		updateRemainingTime();
+		if (isTimeOver())
+			endGame(GameResult::LOST);
 	}
 
 	void GameplayController::render()
 	{
 		// Yet to implement
+	}
+
+	bool GameplayController::isTimeOver() 
+	{ 
+		return (remaining_time <= 1); 
 	}
 
 	// This function is called to handle the end of a game session.

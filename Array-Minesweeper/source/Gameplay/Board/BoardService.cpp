@@ -36,6 +36,11 @@ namespace Gameplay
 			board_controller->processCellInput(cell_controller, button_type);
 		}
 
+		void BoardService::showBoard()
+		{
+			board_controller->showBoard();
+		}
+
 		void BoardService::resetBoard()
 		{
 			board_controller->reset();
@@ -44,6 +49,16 @@ namespace Gameplay
 		int BoardService::getMinesCount() const
 		{
 			return board_controller->getMinesCount();
+		}
+
+		BoardState BoardService::getBoardState() const
+		{
+			return board_controller->getBoardState();
+		}
+
+		void BoardService::setBoardState(BoardState state)
+		{
+			board_controller->setBoardState(state);
 		}
 
 		void BoardService::destroy()

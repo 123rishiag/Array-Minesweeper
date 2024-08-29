@@ -4,6 +4,8 @@ namespace Gameplay
 {
 	class GameplayController;
 
+	enum class GameResult;
+
 	class GameplayService
 	{
 	private:
@@ -19,8 +21,10 @@ namespace Gameplay
 		void update();
 		void render();
 		void startGame();
+		void endGame(GameResult result);
 
 		float getRemainingTime() const;
 		int getMinesCount() const;
+		GameResult getGameResult() const;
 	};
 }

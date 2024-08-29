@@ -1,6 +1,7 @@
 #include "../../header/Gameplay/Board/BoardController.h"
 #include "../../header/Gameplay/Board/BoardView.h"
 #include "../../header/Gameplay/Cell/CellController.h"
+#include "../../header/Gameplay/GameplayController.h"
 #include "../../header/Gameplay/Cell/CellModel.h"
 #include "../../header/Global/ServiceLocator.h"
 #include "../../header/Sound/SoundService.h"
@@ -95,11 +96,6 @@ namespace Gameplay
 
 		void BoardController::openAllCells()
 		{
-			if (board_state == BoardState::FIRST_CELL)
-			{
-				populateBoard(sf::Vector2i(0, 0));
-			}
-
 			for (int row = 0; row < number_of_rows; row++)
 			{
 				for (int column = 0; column < number_of_columns; column++)
@@ -240,12 +236,18 @@ namespace Gameplay
 				processEmptyCell(cell_position); //Handles everything related to opening empty cells
 				break;
 			case::Gameplay::Cell::CellValue::MINE:
-				//processMineCell(cell_position); Yet to implement
+				processMineCell(cell_position);
 				break;
 			default:
 				ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
 				break;
 			}
+		}
+
+		void BoardController::processMineCell(sf::Vector2i cell_position)
+		{
+			ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::EXPLOSION);
+			ServiceLocator::getInstance()->getGameplayService()->endGame(GameResult::LOST);
 		}
 
 		void BoardController::processEmptyCell(sf::Vector2i cell_position)
@@ -276,6 +278,25 @@ namespace Gameplay
 			}
 
 			return mines_around;
+		}
+
+		void BoardController::showBoard()
+		{
+
+			switch (ServiceLocator::getInstance()->getBoardService()->getBoardState())
+			{
+			case Gameplay::Board::BoardState::FIRST_CELL:
+				populateBoard(sf::Vector2i(0, 0));
+				openAllCells();
+				break;
+			case Gameplay::Board::BoardState::PLAYING:
+				openAllCells();
+				break;
+			case Gameplay::Board::BoardState::COMPLETED:
+				break;
+			default:
+				break;
+			}
 		}
 
 		void BoardController::deleteBoard()

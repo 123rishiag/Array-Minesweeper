@@ -29,6 +29,18 @@ namespace Gameplay
 		gameplay_controller->render();
 	}
 
+	void GameplayService::startGame()
+	{
+		gameplay_controller->restart();
+	}
+
+	// This is part of the Gameplay Service layer that interacts with the GameplayController.
+	void GameplayService::endGame(GameResult result)
+	{
+		// This function forwards the result of the game to the controller's endGame function.
+		gameplay_controller->endGame(result); // Trigger the endGame logic in the controller.
+	}
+
 	float GameplayService::getRemainingTime() const
 	{
 		return gameplay_controller->getRemainingTime();
@@ -39,9 +51,9 @@ namespace Gameplay
 		return gameplay_controller->getMinesCount();
 	}
 
-	void GameplayService::startGame()
+	GameResult GameplayService::getGameResult() const
 	{
-		gameplay_controller->restart();
+		return gameplay_controller->getGameResult();
 	}
 
 	void GameplayService::destroy()

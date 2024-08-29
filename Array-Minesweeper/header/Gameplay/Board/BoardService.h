@@ -12,6 +12,7 @@ namespace Gameplay
     namespace Board
     {
         class BoardController;
+        enum class BoardState;
 
         class BoardService
         {
@@ -29,9 +30,13 @@ namespace Gameplay
             void render();
 
             void processCellInput(Cell::CellController* cell_controller, UI::UIElement::ButtonType button_type);
+
+            void showBoard();
             void resetBoard();
 
             int getMinesCount() const;
+            BoardState getBoardState() const;
+            void setBoardState(BoardState state);
         };
     }
 }

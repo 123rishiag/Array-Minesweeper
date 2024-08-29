@@ -38,6 +38,7 @@ namespace Gameplay
             void reset();
 
             void openAllCells();
+            void openEmptyCells(sf::Vector2i cell_position);
             void openCell(sf::Vector2i cell_position);
             void flagCell(sf::Vector2i cell_position);
             void processCellInput(Cell::CellController* cell_controller, UI::UIElement::ButtonType button_type);
@@ -67,6 +68,7 @@ namespace Gameplay
             void populateCells();
             void populateBoard(sf::Vector2i cell_position);
             void processCellValue(sf::Vector2i cell_position);
+            void processEmptyCell(sf::Vector2i cell_position);
             bool isValidCellPosition(sf::Vector2i cell_position) const;
             int countMinesAround(sf::Vector2i cell_position) const;
 

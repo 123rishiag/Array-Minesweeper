@@ -3,6 +3,7 @@
 namespace Gameplay
 {
 	class GameplayController;
+
 	enum class GameResult;
 
 	class GameplayService
@@ -24,5 +25,6 @@ namespace Gameplay
 
 		float getRemainingTime() const;
 		int getMinesCount() const;
+		GameResult getGameResult() const;
 	};
 }

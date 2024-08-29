@@ -51,6 +51,11 @@ namespace Gameplay
 		return gameplay_controller->getMinesCount();
 	}
 
+	GameResult GameplayService::getGameResult() const
+	{
+		return gameplay_controller->getGameResult();
+	}
+
 	void GameplayService::destroy()
 	{
 		delete(gameplay_controller);

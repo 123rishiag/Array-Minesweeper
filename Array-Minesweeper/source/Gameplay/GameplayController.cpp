@@ -108,6 +108,16 @@ namespace Gameplay
 		return ServiceLocator::getInstance()->getBoardService()->getMinesCount();
 	}
 
+	GameResult GameplayController::getGameResult() const
+	{
+		return game_result;
+	}
+
+	void GameplayController::setGameResult(GameResult result)
+	{
+		game_result = result;
+	}
+
 	void GameplayController::restart()
 	{
 		ServiceLocator::getInstance()->getBoardService()->resetBoard();

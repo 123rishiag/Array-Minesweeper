@@ -45,5 +45,7 @@ namespace Gameplay
 
 		float getRemainingTime() const;
 		int getMinesCount() const;
+		GameResult getGameResult() const;
+		void setGameResult(GameResult result);
 	};
 }

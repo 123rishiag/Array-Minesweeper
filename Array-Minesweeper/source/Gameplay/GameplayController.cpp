@@ -17,10 +17,7 @@ namespace Gameplay
 		board_service = ServiceLocator::getInstance()->getBoardService();
 	}
 
-	GameplayController::~GameplayController()
-	{
-		delete(board_service);
-	}
+	GameplayController::~GameplayController() {	}
 
 	void GameplayController::initialize()
 	{

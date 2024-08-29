@@ -74,9 +74,11 @@ namespace Gameplay
             void processMineCell(sf::Vector2i cell_position);
             void processEmptyCell(sf::Vector2i cell_position);
             bool isValidCellPosition(sf::Vector2i cell_position) const;
+            bool areAllCellOpen();
             int countMinesAround(sf::Vector2i cell_position) const;
 
             void destroy();
+            void resetBoard();
             void deleteBoard();
 		};
 	}

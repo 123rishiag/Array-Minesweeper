@@ -157,6 +157,18 @@ namespace Gameplay
 			}
 		}
 
+		void BoardController::flagAllMines()
+		{
+			for (int row = 0; row < number_of_rows; ++row)
+			{
+				for (int col = 0; col < number_of_columns; ++col)
+				{
+					if (board[row][col]->getCellValue() == CellValue::MINE && board[row][col]->getCellState() != CellState::FLAGGED)
+						flagCell(sf::Vector2i(row, col));
+				}
+			}
+		}
+
 		void BoardController::flagCell(sf::Vector2i cell_position)
 		{
 			switch (board[cell_position.x][cell_position.y]->getCellState())
@@ -176,6 +188,9 @@ namespace Gameplay
 
 		void BoardController::processCellInput(Cell::CellController* cell_controller, UI::UIElement::ButtonType button_type)
 		{
+			if (board_state == BoardState::COMPLETED)
+				return; // Returning doesn't allow processing input and hence input is disabled
+
 			switch (button_type)
 			{
 			case UI::UIElement::ButtonType::LEFT_MOUSE_BUTTON:

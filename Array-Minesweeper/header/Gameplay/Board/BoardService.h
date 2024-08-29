@@ -29,6 +29,7 @@ namespace Gameplay
             void update();
             void render();
 
+            void flagAllMines();
             void processCellInput(Cell::CellController* cell_controller, UI::UIElement::ButtonType button_type);
 
             void showBoard();

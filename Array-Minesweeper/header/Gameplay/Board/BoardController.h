@@ -66,6 +66,7 @@ namespace Gameplay
             void populateMines(sf::Vector2i cell_position);
             void populateCells();
             void populateBoard(sf::Vector2i cell_position);
+            void processCellValue(sf::Vector2i cell_position);
             bool isValidCellPosition(sf::Vector2i cell_position) const;
             int countMinesAround(sf::Vector2i cell_position) const;
 

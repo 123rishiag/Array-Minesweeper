@@ -17,10 +17,7 @@ namespace Gameplay
 		board_service = nullptr;
 	}
 
-	GameplayController::~GameplayController() 
-	{	
-		board_service = nullptr;
-	}
+	GameplayController::~GameplayController() { }
 
 	void GameplayController::initialize()
 	{

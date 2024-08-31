@@ -16,8 +16,14 @@ namespace Gameplay
 
 		BoardController::BoardController() : random_engine(random_device()) //// Seeded random engine with random device
 		{
+			// Setting up default sizes
+			number_of_rows = selected_number_of_rows;
+			number_of_columns = selected_number_of_columns;
+			mines_count = selected_mines_count;
+
+			resizeVector();
+
 			board_view = new BoardView(this);
-			createBoard();
 		}
 
 		BoardController::~BoardController()
@@ -39,9 +45,8 @@ namespace Gameplay
 
 		void BoardController::initialize()
 		{
-			board_view->initialize();
-			initializeCells();
 			reset();
+			board_view->initialize();
 		}
 
 		void BoardController::initializeCells()
@@ -114,13 +119,16 @@ namespace Gameplay
 			{
 				int i = static_cast<int>(x_distribution(random_engine));
 				int j = static_cast<int>(y_distribution(random_engine));
-
+				
 				// If the cell is already a mine or it's the same cell that the player wants to open --> Run the loop an extra time
 				if (board[i][j]->getCellValue() == CellValue::MINE || (cell_position.x == i && cell_position.y == j))
 				{
 					mine--; // mine-- runs a loop 1 extra time
 				}
-				else board[i][j]->setCellValue(CellValue::MINE);
+				else
+				{
+					board[i][j]->setCellValue(CellValue::MINE);
+				}
 			}
 		}
 
@@ -258,10 +266,10 @@ namespace Gameplay
 				for (int b = -1; b < 2; b++)
 				{
 					// Skip the iteration if it's the current cell or if the new cell position is not valid.
-					if ((a == 0 && b == 0) || !isValidCellPosition(sf::Vector2i(a + cell_position.x, b + cell_position.y)))
+					if ((a == 0 && b == 0) || !isValidCellPosition(sf::Vector2i(cell_position.x + a, cell_position.y + b)))
 						continue;
 
-					// Calculate the position of the neighbouring cell.
+				    // Calculate the position of the neighbouring cell.
 					sf::Vector2i next_cell_position = sf::Vector2i(a + cell_position.x, b + cell_position.y);
 					openCell(next_cell_position);
 				}
@@ -282,7 +290,7 @@ namespace Gameplay
 		bool BoardController::isValidCellPosition(sf::Vector2i cell_position) const
 		{
 			// if position is withing the bounds of the array, then position is valid
-			return (cell_position.x >= 0 && cell_position.y >= 0 && cell_position.x < number_of_columns && cell_position.y < number_of_rows);
+			return (cell_position.x >= 0 && cell_position.y >= 0 && cell_position.x < number_of_rows && cell_position.y < number_of_columns);
 		}
 
 		bool BoardController::areAllCellOpen()
@@ -325,13 +333,26 @@ namespace Gameplay
 
 		void BoardController::reset()
 		{
-			resetBoard();
+			// Delete previous board
+			deleteBoard();
+
+			// Set up new size for the game
+			number_of_rows = selected_number_of_rows;
+			number_of_columns = selected_number_of_columns;
+			mines_count = selected_mines_count;
 			board_state = BoardState::FIRST_CELL;
 			flagged_cells = 0;
+
+			// Resizing the vector
+			resizeVector();
+			createBoard(); // Recreating board with new sizes
+			initializeCells(); // Recreating the views of cells
+			resetBoard(); // Reseting the cell views
 		}
 
 		void BoardController::resetBoard()
 		{
+			// Reseting each cell as needed
 			for (int row = 0; row < number_of_rows; row++)
 			{
 				for (int column = 0; column < number_of_columns; column++)
@@ -341,14 +362,27 @@ namespace Gameplay
 			}
 		}
 
+
 		void BoardController::deleteBoard()
 		{
 			for (int row = 0; row < number_of_rows; row++)
 			{
 				for (int column = 0; column < number_of_columns; column++)
 				{
-				delete(board[row][column]);
+					delete(board[row][column]);
 				}
+			}
+		}
+
+		void BoardController::resizeVector()
+		{
+			// Resize the outer vector to the desired number of rows
+			board.resize(number_of_rows);
+
+			// Resize each inner vector to the desired number of columns
+			for (int row = 0; row < number_of_rows; row++)
+			{
+				board[row].resize(number_of_columns, nullptr);
 			}
 		}
 
@@ -356,6 +390,46 @@ namespace Gameplay
 		{
 			deleteBoard();
 			delete(board_view);
+		}
+
+		int BoardController::getSelectedRowsCount() const
+		{
+			return selected_number_of_rows;
+		}
+
+		void BoardController::setSelectedRowsCount(int count)
+		{
+			selected_number_of_rows = count;
+		}
+
+		int BoardController::getSelectedColumnsCount() const
+		{
+			return selected_number_of_columns;
+		}
+
+		void BoardController::setSelectedColumnsCount(int count)
+		{
+			selected_number_of_columns = count;
+		}
+
+		int BoardController::getSelectedMinesCount() const
+		{
+			return selected_mines_count;
+		}
+
+		void BoardController::setSelectedMinesCount(int count)
+		{
+			selected_mines_count = count;
+		}
+
+		int BoardController::getRowsCount() const
+		{
+			return number_of_rows;
+		}
+
+		int BoardController::getColumnsCount() const
+		{
+			return number_of_columns;
 		}
 
 		int BoardController::getMinesCount() const

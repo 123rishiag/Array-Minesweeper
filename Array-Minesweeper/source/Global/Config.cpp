@@ -20,6 +20,10 @@ namespace Global
 
 	const sf::String Config::menu_button_texture_path = "assets/textures/menu_button.png";
 
+	const sf::String Config::increment_button_texture_path = "assets/textures/increment_button.png";
+
+	const sf::String Config::decrement_button_texture_path = "assets/textures/decrement_button.png";
+
 	const sf::String Config::bubble_bobble_font_path = "assets/fonts/bubbleBobble.ttf";
 
 	const sf::String Config::DS_DIGIB_font_path = "assets/fonts/DS_DIGIB.ttf";

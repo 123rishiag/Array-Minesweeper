@@ -18,7 +18,7 @@ namespace Gameplay
 	{
 	private:
 		const float max_level_duration = 301.f;
-		const float game_over_time = 11.f;
+		const float game_over_time = 10.f;
 		float remaining_time;
 
 		Board::BoardService* board_service;

@@ -16,6 +16,8 @@ namespace Global
 		static const sf::String quit_button_texture_path;
 		static const sf::String restart_button_texture_path;
 		static const sf::String menu_button_texture_path;
+		static const sf::String increment_button_texture_path;
+		static const sf::String decrement_button_texture_path;
 
 		static const sf::String bubble_bobble_font_path;
 		static const sf::String DS_DIGIB_font_path;

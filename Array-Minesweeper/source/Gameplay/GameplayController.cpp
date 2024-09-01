@@ -27,8 +27,14 @@ namespace Gameplay
 	void GameplayController::update()
 	{
 		updateRemainingTime();
-		if (isTimeOver())
+		if (isTimeOver() && board_service->getBoardState() != BoardState::COMPLETED)
+		{
 			endGame(GameResult::LOST);
+		}
+		else if (isTimeOver())
+		{
+			showCredits();
+		}
 	}
 
 	void GameplayController::render()
@@ -38,14 +44,12 @@ namespace Gameplay
 
 	void GameplayController::updateRemainingTime()
 	{
-		if (game_result == GameResult::WON)
-			return;
 		remaining_time -= ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
 	}
 
 	bool GameplayController::isTimeOver() 
 	{ 
-		return (remaining_time <= 1); 
+		return (remaining_time <= 0); 
 	}
 
 	void GameplayController::restart()
@@ -91,6 +95,7 @@ namespace Gameplay
 	// It corresponds to the "Game Won" path in the architecture.
 	void GameplayController::gameWon()
 	{
+		beginGameOverTimer();
 		game_result = GameResult::WON;
 		board_service->flagAllMines();
 		board_service->setBoardState(BoardState::COMPLETED);
@@ -101,17 +106,10 @@ namespace Gameplay
 	// It corresponds to the "Game Lost" path in the architecture.
 	void GameplayController::gameLost()
 	{
-		if (game_result == GameResult::NONE)
-		{
-			game_result = GameResult::LOST;
-			beginGameOverTimer();
-			board_service->showBoard();
-			board_service->setBoardState(BoardState::COMPLETED);
-		}
-		else
-		{
-			showCredits();
-		}
+		beginGameOverTimer();
+		game_result = GameResult::LOST;
+		board_service->showBoard();
+		board_service->setBoardState(BoardState::COMPLETED);
 	}
 
 	void GameplayController::beginGameOverTimer() 

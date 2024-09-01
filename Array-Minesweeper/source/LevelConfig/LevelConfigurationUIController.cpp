@@ -5,6 +5,7 @@
 #include "../../header/Event/EventService.h"
 #include "../../header/Global/Config.h"
 #include "../../header/Global/ServiceLocator.h"
+#include <cmath> // To use abs()
 
 namespace UI
 {
@@ -123,19 +124,21 @@ namespace UI
 		bool LevelConfigurationUIController::validateInputs()
 		{
 			bool isValidInput = true;
-			int minMines = (current_rows * current_columns) / min_mines_factor;
-			int maxMines = (current_rows * current_columns) / max_mines_factor;
+			int minMines = calculateMinMines();
+			int maxMines = calculateMaxMines();
 
 			if (current_mines < minMines)
 			{
 				current_mines = minMines;
 				validation_message->setText("Mines adjusted to minimum: " + std::to_string(minMines));
+				
 				isValidInput = false;
 			}
 			else if (current_mines > maxMines)
 			{
 				current_mines = maxMines;
 				validation_message->setText("Mines adjusted to maximum: " + std::to_string(maxMines));
+				
 				isValidInput = false;
 			}
 			else
@@ -143,14 +146,20 @@ namespace UI
 				validation_message->setText("");
 			}
 
-			if (current_rows < min_rows_columns || current_rows > max_rows_columns || current_columns < min_rows_columns || current_columns > max_rows_columns)
-			{
-				validation_message->setText("Rows and Columns must be between " + std::to_string(min_rows_columns) + " and " + std::to_string(max_rows_columns) + ".");
-				isValidInput = false;
-			}
-
 			updateDisplayedValues();
 			return isValidInput;
+		}
+
+		int LevelConfigurationUIController::calculateMinMines()
+		{
+			int totalCells = current_rows * current_columns;
+			return std::max(1, static_cast<int>(totalCells * 0.1)); // At least 10% of cells are mines
+		}
+
+		int LevelConfigurationUIController::calculateMaxMines()
+		{
+			int totalCells = current_rows * current_columns;
+			return std::max(1, static_cast<int>(totalCells * 0.15)); // At most around 15% of cells are mines
 		}
 
 		void LevelConfigurationUIController::increaseRows()
@@ -158,6 +167,14 @@ namespace UI
 			if (current_rows < max_rows_columns)
 			{
 				current_rows++;
+
+				// Adjust columns if the difference exceeds max_row_column_difference
+				if (std::abs(current_rows - current_columns) > max_row_column_difference) {
+					if (current_columns < current_rows - max_row_column_difference) {
+						current_columns = current_rows - max_row_column_difference;
+					}
+				}
+
 				validateInputs();
 				updateDisplayedValues();
 			}
@@ -168,6 +185,14 @@ namespace UI
 			if (current_rows > min_rows_columns)
 			{
 				current_rows--;
+
+				// Adjust columns if the difference exceeds max_row_column_difference
+				if (std::abs(current_rows - current_columns) > max_row_column_difference) {
+					if (current_columns > current_rows + max_row_column_difference) {
+						current_columns = current_rows + max_row_column_difference;
+					}
+				}
+
 				validateInputs();
 				updateDisplayedValues();
 			}
@@ -178,6 +203,14 @@ namespace UI
 			if (current_columns < max_rows_columns)
 			{
 				current_columns++;
+
+				// Adjust rows if the difference exceeds max_row_column_difference
+				if (std::abs(current_rows - current_columns) > max_row_column_difference) {
+					if (current_rows < current_columns - max_row_column_difference) {
+						current_rows = current_columns - max_row_column_difference;
+					}
+				}
+
 				validateInputs();
 				updateDisplayedValues();
 			}
@@ -188,6 +221,14 @@ namespace UI
 			if (current_columns > min_rows_columns)
 			{
 				current_columns--;
+
+				// Adjust rows if the difference exceeds max_row_column_difference
+				if (std::abs(current_rows - current_columns) > max_row_column_difference) {
+					if (current_rows > current_columns + max_row_column_difference) {
+						current_rows = current_columns + max_row_column_difference;
+					}
+				}
+
 				validateInputs();
 				updateDisplayedValues();
 			}
@@ -195,7 +236,7 @@ namespace UI
 
 		void LevelConfigurationUIController::increaseMines()
 		{
-			if (current_mines < (current_rows * current_columns) / max_mines_factor)
+			if (current_mines < calculateMaxMines())
 			{
 				current_mines++;
 				updateDisplayedValues();
@@ -204,7 +245,7 @@ namespace UI
 
 		void LevelConfigurationUIController::decreaseMines()
 		{
-			if (current_mines > (current_rows * current_columns) / min_mines_factor)
+			if (current_mines > calculateMinMines())
 			{
 				current_mines--;
 				updateDisplayedValues();

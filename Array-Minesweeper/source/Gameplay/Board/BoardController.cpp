@@ -33,7 +33,6 @@ namespace Gameplay
 
 		void BoardController::createBoard()
 		{
-			
 			for (int row = 0; row < number_of_rows; row++)
 			{
 				for (int column = 0; column < number_of_columns; column++)
@@ -314,7 +313,6 @@ namespace Gameplay
 
 		void BoardController::showBoard()
 		{
-
 			switch (board_state)
 			{
 			case Gameplay::Board::BoardState::FIRST_CELL:
@@ -361,7 +359,6 @@ namespace Gameplay
 				}
 			}
 		}
-
 
 		void BoardController::deleteBoard()
 		{

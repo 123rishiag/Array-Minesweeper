@@ -1,5 +1,4 @@
 #pragma once
-#include <SFML/Graphics.hpp>
 #include "../../header/UI/Interface/IUIController.h"
 #include "../../header/UI/UIElement/TextView.h"
 #include "../../header/UI/UIElement/ButtonView.h"
@@ -25,8 +24,7 @@ namespace UI
 			const float input_field_spacing = 200.f;
 			const int min_rows_columns = 5;
 			const int max_rows_columns = 32;
-			const int min_mines_factor = 12;
-			const int max_mines_factor = 10;
+			const int max_row_column_difference = 5; // Maximum allowable difference between rows and columns
 			const int num_fields = 3;
 			const float text_base_x = 1100.f;
 			const float increment_button_x = 500.f;
@@ -49,6 +47,10 @@ namespace UI
 			int current_rows;
 			int current_columns;
 			int current_mines;
+
+			// Dynamic mine factors
+			int calculateMinMines();
+			int calculateMaxMines();
 
 			void createImage();
 			void createButtons();

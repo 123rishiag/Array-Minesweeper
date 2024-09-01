@@ -112,8 +112,8 @@ namespace Gameplay
 		void BoardController::populateMines(sf::Vector2i cell_position)
 		{
 			// Co-ordinate distribution i.e. selecting random position for mines.
-			std::uniform_int_distribution<int> x_distribution(0, number_of_columns - 1); //Subtracted -1 because index in an array ranges from 0 to size-1
-			std::uniform_int_distribution<int> y_distribution(0, number_of_rows - 1);
+			std::uniform_int_distribution<int> x_distribution(0, number_of_rows - 1); //Subtracted -1 because index in an array ranges from 0 to size-1
+			std::uniform_int_distribution<int> y_distribution(0, number_of_columns - 1);
 
 			for (int mine = 0; mine < mines_count; mine++)
 			{

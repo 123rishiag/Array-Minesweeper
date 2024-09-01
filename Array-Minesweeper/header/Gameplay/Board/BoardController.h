@@ -26,8 +26,8 @@ namespace Gameplay
 		{
         private:
             static const int default_number_of_rows = 9;
-            static const int default_number_of_columns = 9;
-            static const int default_mines_count = 8;
+            static const int default_number_of_columns = 5;
+            static const int default_mines_count = 4;
 
             int selected_number_of_rows = default_number_of_rows;
             int selected_number_of_columns = default_number_of_columns;

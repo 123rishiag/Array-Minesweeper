@@ -23,9 +23,9 @@ namespace Gameplay
         class BoardController
         {
         private:
-            static const int number_of_rows = 3;
-            static const int number_of_columns = 3;
-            static const int mines_count = 1;
+            static const int number_of_rows = 9;
+            static const int number_of_columns = 9;
+            static const int mines_count = 8;
 
             BoardView* board_view;
             // Use a vector of vectors for the 2D array

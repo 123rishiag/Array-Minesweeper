@@ -34,6 +34,11 @@ namespace Gameplay
 
             void showBoard();
             void resetBoard();
+            void resetBoard(int rows, int columns, int mines);
+
+            int getSelectedRowsCount() const;
+            int getSelectedColumnsCount() const;
+            int getSelectedMinesCount() const;
 
             int getMinesCount() const;
             BoardState getBoardState() const;

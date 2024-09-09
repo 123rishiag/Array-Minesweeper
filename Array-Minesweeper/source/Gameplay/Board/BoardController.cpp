@@ -185,7 +185,6 @@ namespace Gameplay
 					populateBoard(cell_position);
 					board_state = BoardState::PLAYING;
 				}
-				ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::FLAG);
 				processCellValue(cell_position); //Handles different cell value
 				board[cell_position.x][cell_position.y]->openCell();
 

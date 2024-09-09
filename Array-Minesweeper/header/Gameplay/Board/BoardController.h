@@ -2,8 +2,6 @@
 #include <SFML/Graphics.hpp>
 #include "../../header/UI/UIElement/ButtonView.h"
 #include <random>
-#include <vector>
-
 namespace Gameplay
 {
     namespace Cell
@@ -11,8 +9,8 @@ namespace Gameplay
         class CellController;
     }
 
-	namespace Board
-	{
+    namespace Board
+    {
         class BoardView;
 
         enum class BoardState
@@ -22,24 +20,16 @@ namespace Gameplay
             COMPLETED,    // The game is over.
         };
 
-		class BoardController
-		{
+        class BoardController
+        {
         private:
-            static const int default_number_of_rows = 9;
-            static const int default_number_of_columns = 9;
-            static const int default_mines_count = 8;
-
-            int selected_number_of_rows = default_number_of_rows;
-            int selected_number_of_columns = default_number_of_columns;
-            int selected_mines_count = default_mines_count;
-
-            int number_of_rows;
-            int number_of_columns;
-            int mines_count;
+            static const int number_of_rows = 3;
+            static const int number_of_columns = 3;
+            static const int mines_count = 1;
 
             BoardView* board_view;
             // Use a vector of vectors for the 2D array
-            std::vector<std::vector<Cell::CellController*>> board;
+            Cell::CellController* board[number_of_rows][number_of_columns];
             BoardState board_state;
 
             int flagged_cells;
@@ -63,8 +53,6 @@ namespace Gameplay
             bool areAllCellOpen();
             int countMinesAround(sf::Vector2i cell_position) const;
 
-            void resizeVector();
-
             void destroy();
             void resetBoard();
             void deleteBoard();
@@ -87,21 +75,12 @@ namespace Gameplay
 
             void showBoard();
 
-            int getSelectedRowsCount() const;
-            void setSelectedRowsCount(int count);
-            int getSelectedColumnsCount() const;
-            void setSelectedColumnsCount(int count);
-            int getSelectedMinesCount() const;
-            void setSelectedMinesCount(int count);
-
             int getRowsCount() const;
             int getColumnsCount() const;
             int getMinesCount() const;
 
             BoardState getBoardState() const;
             void setBoardState(BoardState state);
-
-        
-		};
-	}
+        };
+    }
 }

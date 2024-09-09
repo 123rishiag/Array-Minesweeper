@@ -51,29 +51,6 @@ namespace Gameplay
 			board_controller->reset();
 		}
 
-		void BoardService::resetBoard(int rows, int columns, int mines)
-		{
-			board_controller->setSelectedRowsCount(rows);
-			board_controller->setSelectedColumnsCount(columns);
-			board_controller->setSelectedMinesCount(mines);
-			resetBoard();
-		}
-
-		int BoardService::getSelectedRowsCount() const
-		{
-			return board_controller->getSelectedRowsCount();
-		}
-
-		int BoardService::getSelectedColumnsCount() const
-		{
-			return board_controller->getSelectedColumnsCount();
-		}
-
-		int BoardService::getSelectedMinesCount() const
-		{
-			return board_controller->getSelectedMinesCount();
-		}
-
 		int BoardService::getMinesCount() const
 		{
 			return board_controller->getMinesCount();

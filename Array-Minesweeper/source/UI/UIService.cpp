@@ -7,7 +7,6 @@ namespace UI
 	using namespace Main;
 	using namespace SplashScreen;
 	using namespace MainMenu;
-	using namespace LevelConfig;
 	using namespace Instructions;
 	using namespace GameplayUI;
 	using namespace Credits;
@@ -18,7 +17,6 @@ namespace UI
 	{
 		splash_screen_controller = nullptr;
 		main_menu_controller = nullptr;
-		level_configuration_controller = nullptr;
 		instructions_screen_controller = nullptr;
 		gameplay_ui_controller = nullptr;
 		credit_screen_controller = nullptr;
@@ -30,7 +28,6 @@ namespace UI
 	{
 		splash_screen_controller = new SplashScreenUIController();
 		main_menu_controller = new MainMenuUIController();
-		level_configuration_controller = new LevelConfigurationUIController();
 		instructions_screen_controller = new InstructionsScreenUIController();
 		gameplay_ui_controller = new GameplayUIController();
 		credit_screen_controller = new CreditsScreenUIController();
@@ -69,7 +66,6 @@ namespace UI
 	{
 		splash_screen_controller->initialize();
 		main_menu_controller->initialize();
-		level_configuration_controller->initialize();
 		instructions_screen_controller->initialize();
 		gameplay_ui_controller->initialize();
 		credit_screen_controller->initialize();
@@ -83,8 +79,6 @@ namespace UI
 			return splash_screen_controller;
 		case GameState::MAIN_MENU:
 			return main_menu_controller;
-		case GameState::LEVEL_CONFIGURATION:
-			return level_configuration_controller;
 		case GameState::INSTRUCTIONS:
 			return instructions_screen_controller;
 		case GameState::GAMEPLAY:
@@ -100,7 +94,6 @@ namespace UI
 	{
 		delete(splash_screen_controller);
 		delete(main_menu_controller);
-		delete(level_configuration_controller);
 		delete(instructions_screen_controller);
 		delete(gameplay_ui_controller);
 		delete(credit_screen_controller);

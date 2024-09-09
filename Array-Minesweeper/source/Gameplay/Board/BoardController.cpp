@@ -16,14 +16,8 @@ namespace Gameplay
 
 		BoardController::BoardController() : random_engine(random_device()) //// Seeded random engine with random device
 		{
-			// Setting up default sizes
-			number_of_rows = selected_number_of_rows;
-			number_of_columns = selected_number_of_columns;
-			mines_count = selected_mines_count;
-
-			resizeVector();
-
 			board_view = new BoardView(this);
+			createBoard();
 		}
 
 		BoardController::~BoardController()
@@ -36,7 +30,7 @@ namespace Gameplay
 			for (int row = 0; row < number_of_rows; row++)
 			{
 				for (int column = 0; column < number_of_columns; column++)
-				{ 
+				{
 					board[row][column] = new CellController(sf::Vector2i(row, column)); //Passing Cell Index in Cell Controller's constructor
 				}
 			}
@@ -46,6 +40,7 @@ namespace Gameplay
 		{
 			reset();
 			board_view->initialize();
+			initializeCells();
 		}
 
 		void BoardController::initializeCells()
@@ -118,7 +113,7 @@ namespace Gameplay
 			{
 				int i = static_cast<int>(x_distribution(random_engine));
 				int j = static_cast<int>(y_distribution(random_engine));
-				
+
 				// If the cell is already a mine or it's the same cell that the player wants to open --> Run the loop an extra time
 				if (board[i][j]->getCellValue() == CellValue::MINE || (cell_position.x == i && cell_position.y == j))
 				{
@@ -190,7 +185,7 @@ namespace Gameplay
 					populateBoard(cell_position);
 					board_state = BoardState::PLAYING;
 				}
-
+				ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::FLAG);
 				processCellValue(cell_position); //Handles different cell value
 				board[cell_position.x][cell_position.y]->openCell();
 
@@ -268,7 +263,7 @@ namespace Gameplay
 					if ((a == 0 && b == 0) || !isValidCellPosition(sf::Vector2i(cell_position.x + a, cell_position.y + b)))
 						continue;
 
-				    // Calculate the position of the neighbouring cell.
+					// Calculate the position of the neighbouring cell.
 					sf::Vector2i next_cell_position = sf::Vector2i(a + cell_position.x, b + cell_position.y);
 					openCell(next_cell_position);
 				}
@@ -331,21 +326,10 @@ namespace Gameplay
 
 		void BoardController::reset()
 		{
-			// Delete previous board
-			deleteBoard();
+			resetBoard(); // Reseting the cell views
 
-			// Set up new size for the game
-			number_of_rows = selected_number_of_rows;
-			number_of_columns = selected_number_of_columns;
-			mines_count = selected_mines_count;
 			board_state = BoardState::FIRST_CELL;
 			flagged_cells = 0;
-
-			// Resizing the vector
-			resizeVector();
-			createBoard(); // Recreating board with new sizes
-			initializeCells(); // Recreating the views of cells
-			resetBoard(); // Reseting the cell views
 		}
 
 		void BoardController::resetBoard()
@@ -371,54 +355,6 @@ namespace Gameplay
 			}
 		}
 
-		void BoardController::resizeVector()
-		{
-			// Resize the outer vector to the desired number of rows
-			board.resize(number_of_rows);
-
-			// Resize each inner vector to the desired number of columns
-			for (int row = 0; row < number_of_rows; row++)
-			{
-				board[row].resize(number_of_columns, nullptr);
-			}
-		}
-
-		void BoardController::destroy()
-		{
-			deleteBoard();
-			delete(board_view);
-		}
-
-		int BoardController::getSelectedRowsCount() const
-		{
-			return selected_number_of_rows;
-		}
-
-		void BoardController::setSelectedRowsCount(int count)
-		{
-			selected_number_of_rows = count;
-		}
-
-		int BoardController::getSelectedColumnsCount() const
-		{
-			return selected_number_of_columns;
-		}
-
-		void BoardController::setSelectedColumnsCount(int count)
-		{
-			selected_number_of_columns = count;
-		}
-
-		int BoardController::getSelectedMinesCount() const
-		{
-			return selected_mines_count;
-		}
-
-		void BoardController::setSelectedMinesCount(int count)
-		{
-			selected_mines_count = count;
-		}
-
 		int BoardController::getRowsCount() const
 		{
 			return number_of_rows;
@@ -442,6 +378,12 @@ namespace Gameplay
 		void BoardController::setBoardState(BoardState state)
 		{
 			board_state = state;
+		}
+
+		void BoardController::destroy()
+		{
+			deleteBoard();
+			delete(board_view);
 		}
 	}
 }

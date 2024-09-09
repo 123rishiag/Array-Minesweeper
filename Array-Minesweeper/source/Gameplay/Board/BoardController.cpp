@@ -16,8 +16,14 @@ namespace Gameplay
 
 		BoardController::BoardController() : random_engine(random_device()) //// Seeded random engine with random device
 		{
+			// Setting up default sizes
+			number_of_rows = selected_number_of_rows;
+			number_of_columns = selected_number_of_columns;
+			mines_count = selected_mines_count;
+
+			resizeVector();
+
 			board_view = new BoardView(this);
-			createBoard();
 		}
 
 		BoardController::~BoardController()
@@ -40,7 +46,6 @@ namespace Gameplay
 		{
 			reset();
 			board_view->initialize();
-			initializeCells();
 		}
 
 		void BoardController::initializeCells()
@@ -325,10 +330,21 @@ namespace Gameplay
 
 		void BoardController::reset()
 		{
-			resetBoard(); // Reseting the cell views
+			// Delete previous board
+			deleteBoard();
 
+			// Set up new size for the game
+			number_of_rows = selected_number_of_rows;
+			number_of_columns = selected_number_of_columns;
+			mines_count = selected_mines_count;
 			board_state = BoardState::FIRST_CELL;
 			flagged_cells = 0;
+
+			// Resizing the vector
+			resizeVector();
+			createBoard(); // Recreating board with new sizes
+			initializeCells(); // Recreating the views of cells
+			resetBoard(); // Reseting the cell views
 		}
 
 		void BoardController::resetBoard()
@@ -352,6 +368,48 @@ namespace Gameplay
 					delete(board[row][column]);
 				}
 			}
+		}
+
+		void BoardController::resizeVector()
+		{
+			// Resize the outer vector to the desired number of rows
+			board.resize(number_of_rows);
+
+			// Resize each inner vector to the desired number of columns
+			for (int row = 0; row < number_of_rows; row++)
+			{
+				board[row].resize(number_of_columns, nullptr);
+			}
+		}
+
+		int BoardController::getSelectedRowsCount() const
+		{
+			return selected_number_of_rows;
+		}
+
+		void BoardController::setSelectedRowsCount(int count)
+		{
+			selected_number_of_rows = count;
+		}
+
+		int BoardController::getSelectedColumnsCount() const
+		{
+			return selected_number_of_columns;
+		}
+
+		void BoardController::setSelectedColumnsCount(int count)
+		{
+			selected_number_of_columns = count;
+		}
+
+		int BoardController::getSelectedMinesCount() const
+		{
+			return selected_mines_count;
+		}
+
+		void BoardController::setSelectedMinesCount(int count)
+		{
+			selected_mines_count = count;
 		}
 
 		int BoardController::getRowsCount() const

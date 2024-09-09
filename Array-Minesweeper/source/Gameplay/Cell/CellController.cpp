@@ -1,6 +1,7 @@
 #include "../../header/Gameplay/Cell/CellController.h"
 #include "../../header/Gameplay/Cell/CellModel.h"
 #include "../../header/Gameplay/Cell/CellView.h"
+#include "../../header/Sound/SoundService.h"
 #include "../../header/Global/ServiceLocator.h"
 
 namespace Gameplay
@@ -8,6 +9,7 @@ namespace Gameplay
 	namespace Cell
 	{
 		using namespace Global;
+		using namespace Sound;
 
 		CellController::CellController(sf::Vector2i grid_position)
 		{
@@ -73,6 +75,8 @@ namespace Gameplay
 		void CellController::openCell()
 		{
 			cell_model->setCellState(CellState::OPEN);
+
+			ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::FLAG);
 		}
 
 		bool CellController::canOpenCell()
@@ -91,6 +95,8 @@ namespace Gameplay
 				cell_model->setCellState(CellState::FLAGGED);
 				break;
 			}
+
+			ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::FLAG);
 		}
 
 		void CellController::destroy()

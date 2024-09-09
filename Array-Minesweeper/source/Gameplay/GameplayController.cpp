@@ -14,14 +14,14 @@ namespace Gameplay
 
 	GameplayController::GameplayController()
 	{
-		board_service = nullptr;
+		board_service = ServiceLocator::getInstance()->getBoardService();
 	}
 
-	GameplayController::~GameplayController() { }
+	GameplayController::~GameplayController() {	}
 
 	void GameplayController::initialize()
 	{
-		board_service = ServiceLocator::getInstance()->getBoardService();
+		// Yet to implement
 	}
 
 	void GameplayController::update()
@@ -36,33 +36,9 @@ namespace Gameplay
 		// Yet to implement
 	}
 
-	void GameplayController::updateRemainingTime()
-	{
-		if (game_result == GameResult::WON)
-			return;
-		remaining_time -= ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
-	}
-
 	bool GameplayController::isTimeOver() 
 	{ 
 		return (remaining_time <= 1); 
-	}
-
-	void GameplayController::restart()
-	{
-		game_result = GameResult::NONE;
-		board_service->resetBoard();
-		remaining_time = max_level_duration;
-	}
-
-	int GameplayController::getMinesCount() const
-	{
-		return board_service->getMinesCount();
-	}
-
-	float GameplayController::getRemainingTime() const
-	{
-		return remaining_time;
 	}
 
 	// This function is called to handle the end of a game session.
@@ -87,16 +63,6 @@ namespace Gameplay
 		}
 	}
 
-	// This function defines what should happen when the game is won.
-	// It corresponds to the "Game Won" path in the architecture.
-	void GameplayController::gameWon()
-	{
-		game_result = GameResult::WON;
-		board_service->flagAllMines();
-		board_service->setBoardState(BoardState::COMPLETED);
-		ServiceLocator::getInstance()->getSoundService()->playSound(Sound::SoundType::GAME_WON);
-	}
-
 	// This function defines what should happen when the game is lost.
 	// It corresponds to the "Game Lost" path in the architecture.
 	void GameplayController::gameLost()
@@ -114,6 +80,16 @@ namespace Gameplay
 		}
 	}
 
+	// This function defines what should happen when the game is won.
+	// It corresponds to the "Game Won" path in the architecture.
+	void GameplayController::gameWon()
+	{
+		game_result = GameResult::WON;
+		board_service->flagAllMines();
+		board_service->setBoardState(BoardState::COMPLETED);
+		ServiceLocator::getInstance()->getSoundService()->playSound(Sound::SoundType::GAME_WON);
+	}
+
 	void GameplayController::beginGameOverTimer() 
 	{ 
 		remaining_time = game_over_time; 
@@ -124,6 +100,21 @@ namespace Gameplay
 		GameService::setGameState(GameState::CREDITS); 
 	}
 
+	void GameplayController::updateRemainingTime()
+	{
+		remaining_time -= ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
+	}
+
+	float GameplayController::getRemainingTime() const
+	{
+		return remaining_time;
+	}
+
+	int GameplayController::getMinesCount() const
+	{
+		return ServiceLocator::getInstance()->getBoardService()->getMinesCount();
+	}
+
 	GameResult GameplayController::getGameResult() const
 	{
 		return game_result;
@@ -132,5 +123,11 @@ namespace Gameplay
 	void GameplayController::setGameResult(GameResult result)
 	{
 		game_result = result;
+	}
+
+	void GameplayController::restart()
+	{
+		ServiceLocator::getInstance()->getBoardService()->resetBoard();
+		remaining_time = max_level_duration;
 	}
 }

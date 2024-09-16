@@ -1,4 +1,4 @@
-# Minesweeper
+# Array Minesweeper
 
 ## Overview
 Welcome to **Minesweeper**, a classic puzzle game that combines strategy and quick thinking. In this project, we'll recreate this iconic game using C++ and SFML, diving deep into game mechanics and 2D arrays to deliver an engaging experience.

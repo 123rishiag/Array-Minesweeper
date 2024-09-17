@@ -15,12 +15,12 @@ Welcome to **Minesweeper**, a classic puzzle game that combines strategy and qui
 
 ## Learning Outcomes
 
-- **Data Structures**: Gain hands-on experience with 2D arrays, crucial for implementing grid-based games like Minesweeper.
-- **Game Logic**: Develop an understanding of game mechanics and state management.
-- **User Interface**: Design and implement an intuitive UI to enhance the gameplay experience.
-- **Event Handling**: Create responsive controls for smooth and engaging gameplay.
-- **Object-Oriented Design**: Enhance your understanding of OOP principles and practices.
-- **Game Loop and State Management**: Maintain fluid transitions and consistent game state throughout the gameplay.
+- **Data Structures**: Gained hands-on experience with 2D arrays, crucial for implementing grid-based games like Minesweeper.
+- **Game Logic**: Developed an understanding of game mechanics and state management.
+- **User Interface**: Designed and implemented an intuitive UI to enhance the gameplay experience.
+- **Event Handling**: Created responsive controls for smooth and engaging gameplay.
+- **Object-Oriented Design**: Enhanced understanding of OOP principles and practices.
+- **Game Loop and State Management**: Maintained fluid transitions and consistent game state throughout the gameplay.
 
 ## Project Structure
 
